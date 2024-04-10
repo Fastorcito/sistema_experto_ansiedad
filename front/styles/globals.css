@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .content-container {
   margin-top: 40px; /* Adjust the value according to the height of your fixed navbar */
   padding: 60px; /* Add additional padding if desired */
