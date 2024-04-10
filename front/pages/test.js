@@ -140,6 +140,7 @@ const parseBody = (input) => {
   return {
     "antecedentes_familiares": input.antecedentes_familiares === "Sí" ? "SI" : "NO",
     "diagnostico_previo": input.diagnostico_previo === "Sí" ? "SI" : "NO",
+    
     "sintomas": {
       "angustia": input.angustia === "Severa" ? "ANGUSTIA_ALTA" : ("Moderada" ? "ANGUSTIA_MEDIA" : "ANGUSTIA_BAJA"),
       "apego": input.apego === "Constante" ? "APEGO_ALTO" : "APEGO_BAJO",
@@ -149,7 +150,8 @@ const parseBody = (input) => {
       "problemas_sueño": input.problemas_sueño === "Recurrentes" ? "PROBLEMAS_SUEÑO_ALTO" : "PROBLEMAS_SUEÑO_BAJO",
       "dificultad_social": input.dificultad_social === "Alta" ? "DIFICULTAD_SOCIAL_ALTA" : "DIFICULTAD_SOCIAL_BAJA",
       "dificultad_concentrar": input.dificultad_concentrar === "Alta" ? "DIFICULTAD_CONCENTRAR_ALTA" : "DIFICULTAD_CONCENTRAR_BAJA"
-    }
+    },
+    "miedo_transporte": input.miedo_transporte === "Sí" ? "SI" : "NO",
 
   }
 }

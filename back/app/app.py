@@ -4,7 +4,8 @@ from fastapi import FastAPI, HTTPException
 from starlette import status
 from sistema_experto import *
 from fastapi.middleware.cors import CORSMiddleware
-from utils import DiagnosticoRequest, obtener_antecedentes, obtener_diagnostico_previo, obtener_sintoma
+from utils import *
+#from utils import DiagnosticoRequest, obtener_antecedentes, obtener_diagnostico_previo, obtener_sintoma
 
 
 app = FastAPI()
@@ -35,6 +36,10 @@ async def diagnostico(request: DiagnosticoRequest):
 
     for _sintoma_nombre, sintoma_valor in request.sintomas.items():
         experto_diagnosticador.declare(Fact(obtener_sintoma(sintoma_valor)))
+    
+    experto_diagnosticador.declare(
+        Fact(obtener_miedo_transporte(request.miedo_transporte.value))
+    )
 
     print(experto_diagnosticador.facts)
     experto_diagnosticador.run()

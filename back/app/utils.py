@@ -10,6 +10,11 @@ class DiagnosticoPrevio(str, Enum):
     SI = "SI"
 
 
+class MiedoTransporte(str, Enum):
+    NO = "NO"
+    SI = "SI"
+
+
 class AntecedentesFamiliares(str, Enum):
     NO = "NO"
     SI = "SI"
@@ -25,9 +30,10 @@ class DiagnosticoRequest(BaseModel):
                                                     "miedo_irracional": "MIEDO_IRRACIONAL_BAJO",
                                                     "temor_repentino": "TEMOR_REPENTINO_BAJO",
                                                     "problemas_sueño": "PROBLEMAS_SUEÑO_BAJO",
-                                                    "dificultad_social": "DIFICULTAD_SOCIAL_ALTA",                                                    "dificultad_concentrar": "DIFICULTAS_CONCENTRAR_BAJA"
+                                                    "dificultad_social": "DIFICULTAD_SOCIAL_ALTA"
                                                 })
-    
+    miedo_transporte: MiedoTransporte = Field(..., example="SI")
+
 
 def obtener_sintoma(nombre_sintoma):
     sintoma = ""
@@ -46,6 +52,13 @@ def obtener_diagnostico_previo(nombre_diagnostico_previo):
             break
     return diagnostico_previo
 
+def obtener_miedo_transporte(nombre_diagnostico_previo):
+    diagnostico_previo = ""
+    for d in MiedoTransporte:
+        if d.name == nombre_diagnostico_previo:
+            diagnostico_previo = d
+            break
+    return diagnostico_previo
 
 def obtener_antecedentes(nombre_antecedentes):
     antecedentes = ""

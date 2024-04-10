@@ -142,19 +142,15 @@ class Diagnosticador(KnowledgeEngine):
 
     #AGORAFOBIA
     @Rule(
-        Fact(Sintomas.MIEDO_IRRACIONAL_ALTO), 
-        OR(
-            Fact(MiedoTransporte.SI), 
-            Fact(MiedoEspaciosAbiertos.SI), 
-            Fact(MiedoEspaciosCerrados.SI), 
-            Fact(MiedoMultitud.SI) 
-        )
+        Fact(Sintomas.MIEDO_IRRACIONAL_ALTO)
+        
     )
     def agarofobia(self) :
         self.diagnostico.append(Diagnostico.AGORAFOBIA)
+
+    
     # DEFAULT RULE
     @Rule()
     def default(self):
         if not self.diagnostico:
             self.diagnostico = [Diagnostico.SIN_DIAGNOSTICO]
-
