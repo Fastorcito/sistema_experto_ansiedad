@@ -28,50 +28,26 @@ class Sintomas(Enum):
     PROBLEMAS_SUEÑO_BAJO = 14  # problemas_sueño menor a 2
     DIFICULTAD_CONCENTRAR_BAJA = 15 # dificultad_concentrar menor a 2
     DIFICULTAD_CONCENTRAR_ALTA = 16 # dificultad_concentrar mayor a 2
+    MIEDO_SOLEDAD = 17
+    PESADILLA_SEPARACION = 18
+    MIEDO_SEPARACION = 19
+    FRACASO_HABLAR = 20
+    MIEDO_RECHAZO = 21
+    MIEDO_TRANSPORTE = 22
+    MIEDO_ESPACIOS_ABIERTOS = 23
+    MIEDO_ESPACIOS_CERRADOS = 24
+    MIEDO_MULTITUD = 25
+    SIN_MIEDO_SOLEDAD = 26
+    SIN_PESADILLA_SEPARACION = 27
+    SIN_MIEDO_SEPARACION = 28
+    SIN_FRACASO_HABLAR = 29
+    SIN_MIEDO_RECHAZO = 30
+    SIN_MIEDO_TRANSPORTE = 31
+    SIN_MIEDO_ESPACIOS_ABIERTOS = 32
+    SIN_MIEDO_ESPACIOS_CERRADOS = 33
+    SIN_MIEDO_MULTITUD = 34
 
-class MiedoEstarSolo(Enum):
-    NO = 0
-    SI = 1
 
-class PesadillasPorSeparacion(Enum):
-    NO = 0
-    SI = 1
-
-class MiedoPorSeparacion(Enum):
-    NO = 0
-    SI = 1
-
-class FracasosHabla(Enum):
-    NO = 0
-    SI = 1
-
-class MiedoRechazoSocial(Enum):
-    NO = 0
-    SI = 1
-
-class EvitarSituacionesSociales(Enum):
-    NO = 0
-    SI = 1
-
-class MiedoTransporte(Enum):
-    NO = 0
-    SI = 1
-
-class MiedoEspaciosAbiertos(Enum):
-    NO = 0
-    SI = 1
-
-class MiedoEspaciosCerrados(Enum):
-    NO = 0
-    SI = 1
-
-class MiedoMultitud(Enum):
-    NO = 0
-    SI = 1
-
-class AfectaAmbitos(Enum):
-    NO = 0
-    SI = 1
 
 
 class Diagnostico(Enum):
@@ -80,7 +56,7 @@ class Diagnostico(Enum):
     FOBIA_SOCIAL = "Trastorno de ansiedad social (fobia social)"
     TRASTORNO_DE_PANICO = "Trastorno de pánico"
     MUTISMO_SELECTIVO = "Transtorno de ansiedad de mutismo selectivo"
-    AGORAFOBIA = "Transtorno de agorafobia"
+    AGORAFOBIA = "Trastorno de agorafobia"
     SIN_DIAGNOSTICO = "No se ha podido diagnosticar"
 
 
@@ -131,10 +107,10 @@ class Diagnosticador(KnowledgeEngine):
 
     #MUTISMO SELECTIVO
     @Rule (
-        Fact(FracasosHabla.SI), 
+        Fact(Sintomas.FRACASO_HABLAR), 
         OR(
             Fact(Sintomas.ANGUSTIA_MEDIA),
-            Fact(Sintomas.ANGUSTIA_MEDIA)
+            Fact(Sintomas.ANGUSTIA_ALTA)
         )
     )
     def mutismo_selectivo(self):
@@ -142,8 +118,7 @@ class Diagnosticador(KnowledgeEngine):
 
     #AGORAFOBIA
     @Rule(
-        Fact(Sintomas.MIEDO_IRRACIONAL_ALTO)
-        
+        Fact(Sintomas.MIEDO_IRRACIONAL_ALTO), Fact(Sintomas.MIEDO_TRANSPORTE)
     )
     def agarofobia(self) :
         self.diagnostico.append(Diagnostico.AGORAFOBIA)

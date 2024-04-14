@@ -8,26 +8,26 @@ const diagnostic_description = {
   "Trastorno de ansiedad generalizada": "Ansiedad y preocupación excesiva sin control, con síntomas como dificultad para controlar la preocupación, inquietud, fatiga, dificultad para concentrarse, irritabilidad y malestar significativo en áreas importantes del funcionamiento.",
   "Trastorno de ansiedad social (fobia social)": "Miedo intenso o ansiedad en situaciones sociales donde se teme ser juzgado o avergonzado, con síntomas como temor persistente, evitación de situaciones sociales, dificultades en las relaciones sociales, ansiedad anticipatoria y reconocimiento de que el miedo es irracional.",
   "Trastorno de pánico": "Ataques de pánico recurrentes e inesperados, con síntomas como miedo intenso, palpitaciones, sudoración, dificultad para respirar, opresión en el pecho, mareos, miedo a perder el control o morir, y cambios en el comportamiento para evitar los ataques o situaciones desencadenantes.",
-  "Mutismo selectivo":"Tienes mutismo xd",
-  "Agarofobia":"Tienes Agarofobia",
-  "No se ha podido diagnosticar": ""
+  "Transtorno de ansiedad de mutismo selectivo": "Es un trastorno de ansiedad donde la persona no puede hablar en ciertas situaciones sociales, a pesar de poder hacerlo en otros entornos. Se debe a la ansiedad social y se trata con terapia cognitivo-conductual.",
+  "Trastorno de agorafobia": "Se caracteriza por un miedo intenso a situaciones donde escapar puede ser difícil o embarazoso, como espacios abiertos o multitudes. Puede limitar severamente la vida diaria de la persona. El tratamiento implica terapia y exposición gradual a las situaciones temidas.",
+  "No se ha podido diagnosticar": "",
 }
 
 const fields = [
   {
-    labelText: '¿Alguno tus familiares a sufrido de ansiedad?',
+    labelText: '¿Alguno de tus familiares ha sufrido de ansiedad?',
     selectId: 'antecedentes_familiares',
     selectName: 'antecedentes_familiares',
     selectOptions: ['', 'Sí', 'No'],
   },
   {
-    labelText: '¿Alguna vez recibido tratamiento psicologico?',
+    labelText: '¿Alguna vez has recibido tratamiento psicológico?',
     selectId: 'diagnostico_previo',
     selectName: 'diagnostico_previo',
     selectOptions: ['', 'Sí', 'No'],
   },
   {
-    labelText: '¿Cómo calificarias la angustia que sufres dia a dia?',
+    labelText: '¿Cómo calificarías la angustia que sufres día a día?',
     selectId: 'angustia',
     selectName: 'angustia',
     selectOptions: ['', 'Severa', 'Moderada', 'Leve'],
@@ -39,7 +39,7 @@ const fields = [
     selectOptions: ['', 'Constante', 'Ocasional'],
   },
   {
-    labelText: '¿Cuan a menudo sientes miedo?',
+    labelText: '¿Cuán a menudo sientes miedo?',
     selectId: 'miedo_irracional',
     selectName: 'miedo_irracional',
     selectOptions: ['', 'Frecuente', 'Infrecuente'],
@@ -69,7 +69,7 @@ const fields = [
     selectOptions: ['', 'Frecuente', 'Infrecuente'],
   },
   {
-    labelText: '¿Que nivel de dificultad tienes a la hora de concentrarse?',
+    labelText: '¿Qué nivel de dificultad tienes a la hora de concentrarte?',
     selectId: 'dificultad_concentrar',
     selectName: 'dificultad_concentrar',
     selectOptions: ['', 'Alta', 'Baja'],
@@ -87,27 +87,21 @@ const fields = [
     selectOptions: ['', 'Sí', 'No'],
   },
   {
-    labelText: '¿Tienes miedo a que una persona se separe de ti?',
+    labelText: '¿Tienes miedo a que una persona se separe de tí?',
     selectId: 'miedo_separacion',
     selectName: 'miedo_separacion',
     selectOptions: ['', 'Sí', 'No'],
   },
   {
-    labelText: '¿Se te dificulta hablar en publico?',
-    selectId: 'fracasos_habla',
-    selectName: 'fracasos_habla',
+    labelText: '¿Se te dificulta hablar en público?',
+    selectId: 'fracaso_hablar',
+    selectName: 'fracaso_hablar',
     selectOptions: ['', 'Sí', 'No'],
   },
   {
     labelText: '¿Tienes miedo a ser rechazado?',
     selectId: 'miedo_rechazo',
     selectName: 'miedo_rechazo',
-    selectOptions: ['', 'Sí', 'No'],
-  },
-  {
-    labelText: '¿Evitas comunicarte con los demás?',
-    selectId: 'evitar_social',
-    selectName: 'evitar_social',
     selectOptions: ['', 'Sí', 'No'],
   },
   {
@@ -130,8 +124,8 @@ const fields = [
   },
   {
     labelText: '¿Tiene miedo a las multitudes?',
-    selectId: 'miedo_multitudes',
-    selectName: 'miedo_multitudes',
+    selectId: 'miedo_multitud',
+    selectName: 'miedo_multitud',
     selectOptions: ['', 'Sí', 'No'],
   },
 ]
@@ -149,9 +143,18 @@ const parseBody = (input) => {
       "temor_repentino": input.temor_repentino === "Infrecuente" ? "TEMOR_REPENTINO_BAJO" : "TEMOR_REPENTINO_ALTO",
       "problemas_sueño": input.problemas_sueño === "Recurrentes" ? "PROBLEMAS_SUEÑO_ALTO" : "PROBLEMAS_SUEÑO_BAJO",
       "dificultad_social": input.dificultad_social === "Alta" ? "DIFICULTAD_SOCIAL_ALTA" : "DIFICULTAD_SOCIAL_BAJA",
-      "dificultad_concentrar": input.dificultad_concentrar === "Alta" ? "DIFICULTAD_CONCENTRAR_ALTA" : "DIFICULTAD_CONCENTRAR_BAJA"
-    },
-    "miedo_transporte": input.miedo_transporte === "Sí" ? "SI" : "NO",
+      "dificultad_concentrar": input.dificultad_concentrar === "Alta" ? "DIFICULTAD_CONCENTRAR_ALTA" : "DIFICULTAD_CONCENTRAR_BAJA",
+      "miedo_soledad": input.miedo_soledad === "Sí" ? "MIEDO_SOLEDAD" : "SIN_MIEDO_SOLEDAD",
+      "pesadilla_separacion": input.pesadilla_separacion === "Sí" ? "PESADILLA_SEPARACION" : "SIN_PESADILLA_SEPARACION",
+      "miedo_separacion": input.miedo_separacion === "Sí" ? "MIEDO_SEPARACION" : "SIN_MIEDO_SEPARACION",
+      "fracaso_hablar": input.fracaso_hablar === "Sí" ? "FRACASO_HABLAR" : "SIN_FRACASO_HABLAR",
+      "miedo_rechazo": input.miedo_rechazo === "Sí" ? "MIEDO_RECHAZO" : "SIN_MIEDO_RECHAZO",
+      "miedo_transporte": input.miedo_transporte === "Sí" ? "MIEDO_TRANSPORTE" : "SIN_MIEDO_TRANSPORTE",
+      "miedo_espacios_abiertos": input.miedo_espacios_abiertos === "Sí" ? "MIEDO_ESPACIOS_ABIERTOS" : "SIN_MIEDO_ESPACIOS_ABIERTOS",
+      "miedo_espacios_cerrados": input.miedo_espacios_cerrados === "Sí" ? "MIEDO_ESPACIOS_CERRADOS" : "SIN_MIEDO_ESPACIOS_CERRADOS",
+      "miedo_multitud": input.miedo_multitud === "Sí" ? "MIEDO_MULTITUD" : "SIN_MIEDO_MULTITUD"
+    }
+
 
   }
 }
